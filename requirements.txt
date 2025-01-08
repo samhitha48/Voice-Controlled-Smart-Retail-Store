@@ -1,0 +1,8 @@
+django
+
+gunicorn
+
+google-cloud-dialogflow
+
+psycopg2-binary
+
