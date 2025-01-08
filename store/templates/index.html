@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kookie</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(-45deg, #1d1d1d, #3d3d3d, #1d1d1d, #0f0f0f);
+            background-size: 400% 400%;
+            color: white;
+            animation: gradientBackground 10s ease infinite;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBackground {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        header {
+            position: relative;
+            background: url('https://source.unsplash.com/1600x900/?shopping,mall') no-repeat center center/cover;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            background-attachment: fixed;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 0;
+        }
+
+        header h1 {
+            z-index: 1;
+            font-size: 4em;
+            font-weight: 600;
+            color: #00FFCC;
+            text-shadow: 0 0 20px #00FFCC, 0 0 30px #00CCAA;
+            margin-bottom: 10px;
+        }
+
+        header h4 {
+            z-index: 1;
+            font-weight: 300;
+            font-size: 1.5em;
+            color: #FFFFFF;
+            text-shadow: 0 0 10px #FFFFFF;
+        }
+
+        .clock {
+            font-size: 1.5em;
+            margin-top: 10px;
+            color: #FFFFFF;
+            text-shadow: 0 0 10px #FFFFFF;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: -50px auto 40px auto;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 255, 255, 0.2), 0 4px 30px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .input-area {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        #userInput {
+            flex: 1;
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid #00FFCC;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            outline: none;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        #userInput:focus {
+            border-color: #FFFFFF;
+            transform: scale(1.02);
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            background: linear-gradient(to right, #00FFCC, #00CCAA);
+            color: #000;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 255, 255, 0.5);
+        }
+
+        #botResponse {
+            font-size: 20px;
+            text-align: center;
+            color: #00FFCC;
+            text-shadow: 0 0 10px #00FFCC;
+            margin-bottom: 30px;
+        }
+
+        .product-carousel {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 10px;
+            scrollbar-width: thin;
+        }
+
+        .product-carousel::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .product-carousel::-webkit-scrollbar-thumb {
+            background: #00FFCC;
+            border-radius: 4px;
+        }
+
+        .product-card {
+            flex: 0 0 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 255, 255, 0.5);
+        }
+
+        footer {
+            background: url('https://source.unsplash.com/1600x900/?retail,store') no-repeat center center/cover;
+            height: 300px;
+            position: relative;
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 0;
+        }
+
+        footer h2 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin: 0;
+            color: #00FFCC;
+            text-shadow: 0 0 20px #00FFCC, 0 0 30px #00CCAA;
+        }
+
+        footer p {
+            font-size: 1.2em;
+            margin: 10px 0;
+            font-weight: 300;
+        }
+
+        .names {
+            display: flex;
+            gap: 30px;
+            z-index: 1;
+        }
+
+        .names .name-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .names .name-card:hover {
+            transform: scale(1.1);
+        }
+
+        .names .name-card h3 {
+            font-size: 1em;
+            margin: 0;
+            color: #00FFCC;
+            text-shadow: 0 0 10px #00FFCC;
+        }
+
+        .chatbot-icon {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(to right, #00FFCC, #00CCAA);
+            border-radius: 50%;
+            padding: 10px;
+            box-shadow: 0 8px 15px rgba(0, 255, 255, 0.3);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .chatbot-icon img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+        }
+
+        .chatbot-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 30px rgba(0, 255, 255, 0.6);
+        }
+
+        .easter-egg {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #FF00FF;
+            padding: 10px 20px;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(255, 0, 255, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Container for the product details */
+        .product-details {
+            border: 1px solid #ddd;    /* Light border */
+            padding: 20px;              /* Add padding around the content */
+            margin: 10px 0;             /* Add margin between products */
+            border-radius: 8px;         /* Rounded corners */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Slight shadow */
+            text-align: left;
+        }
+
+        /* Heading for the product name */
+        .product-details h3 {
+            font-size: 1.5em;           /* Larger font size for the product name */
+            margin-bottom: 10px;         /* Space below the heading */
+            color: #fff;                /* Dark color for the product name */
+            font-weight: bold;          /* Bold text for emphasis */
+        }
+
+        /* Paragraph for product attributes */
+        .product-details p {
+            font-size: 1em;             /* Normal font size */
+            line-height: 1.5;           /* Space between lines */
+            margin: 8px 0;              /* Add some vertical spacing */
+        }
+
+        /* Emphasizing the labels (Color, Size, etc.) */
+        .product-details p strong {
+            color: #fff;                /* Dark color for the labels */
+            font-weight: bold;          /* Make the label text bold */
+        }
+
+        /* Add hover effect to the product details */
+        .product-details:hover {
+            background-color: #444; /* Slightly darker background when hovered */
+            cursor: pointer;           /* Change cursor to pointer to indicate interactivity */
+            transform: translateY(-2px); /* Slight lift effect */
+            transition: all 0.3s ease;  /* Smooth transition for hover effects */
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>KOOKIE</h1>
+    <h4>Your Smart Retail Assistant</h4>
+</header>
+
+<div class="container">
+    <!-- Input field and button for user query -->
+    <div class="input-area">
+        <input type="text" id="userInput" placeholder="Type your message here">
+        <button onclick="startVoiceRecognition()">Speak</button>
+        <button onclick="handleSend()">Send</button>
+    </div>
+
+    <!-- Display bot's response -->
+    <div id="botResponse" class="loading">Awaiting your input...</div>
+
+    <div id="resultList" class="product-carousel"></div>
+
+    <!-- Feedback Section -->
+    <div id="feedbackArea" class="feedback-area">
+    </div>
+</div>
+
+<footer>
+    <h2>Contact Us</h2>
+    <p>Reach out to us anytime!</p>
+    <div class="names">
+        <div class="name-card">
+            <h3>Samhitha Sannidhi</h3>
+        </div>
+        <div class="name-card">
+            <h3>Divya Sai Sindhuja Vankineni</h3>
+        </div>
+    </div>
+</footer>
+
+<script>
+    let feedbackFlag = false;
+
+    function getCSRFToken() {
+        const csrfToken = document.cookie.match(/csrftoken=([\w-]+)/);
+        return csrfToken ? csrfToken[1] : '';
+    }
+
+    async function sendQuery(userInput) {
+        const csrfToken = getCSRFToken();
+        const response = await fetch('/dialogflow-query/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken
+            },
+            body: JSON.stringify({ query: userInput, feedback: feedbackFlag }),
+        });
+
+        const data = await response.json();
+        const resultContainer = document.getElementById('resultList');
+        resultContainer.innerHTML = ''; // Clear any existing content
+
+        if (data.areproducts === "yes") {
+            displayProducts(data.products, resultContainer);
+        }
+        if (data.arestoresections === "yes") {
+            displayStoreSections(data.storesections, resultContainer);
+        }
+        if (data.arepromotions === "yes") {
+            displayPromotions(data.promotions, resultContainer);
+        }
+        if (data.aresupport === "yes") {
+            displaySupportResponses(data.support_responses, resultContainer);
+        }
+        if (data.isfeedback === "yes") {
+            collectfeedback(resultContainer);
+        }
+        if (data.feedback_received === "yes") {
+            feedbackFlag = false;
+        }
+
+        // Return the final message from the bot
+        const botResponse = data.fulfillment_text;
+        
+        // Trigger the speech output for the bot response
+        speakText(botResponse);
+
+        if(feedbackFlag){
+            const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+            await sleep(3000);
+        }
+
+        return botResponse;
+    }
+
+    function collectfeedback(resultContainer) {
+        document.getElementById("botResponse").innerText = "Please provide your feedback.";
+        feedbackFlag = true;
+        document.getElementById("feedbackArea").style.display = "block";  // Show feedback prompt
+    }
+    
+    function handleSend() {
+        const userInput = document.getElementById("userInput").value;
+        if (userInput.trim()) {
+            if(feedbackFlag) {
+                document.getElementById("botResponse").innerText = "Thanks for providing your feedback!";
+                document.getElementById("feedbackArea").style.display = "none";  // Hide feedback area
+            }
+            sendQuery(userInput).then(botResponse => {
+                document.getElementById("botResponse").innerText = botResponse;
+                if(feedbackFlag){
+                    startVoiceRecognition();
+                }
+            }).catch(error => {
+                console.error("Error fetching Dialogflow response:", error);
+                document.getElementById("botResponse").innerText = "Sorry, something went wrong!";
+            });
+        } else {
+            document.getElementById("botResponse").innerText = "Please enter a message.";
+        }
+    }
+
+    function startVoiceRecognition() {
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = 'en-US';
+        recognition.start();
+
+        recognition.onresult = function(event) {
+            const voiceCommand = event.results[0][0].transcript;
+            document.getElementById('userInput').value = voiceCommand;
+            handleSend();
+        };
+
+        recognition.onerror = function(event) {
+            console.error(event.error);
+        };
+    }
+
+    // Function to trigger speech synthesis (text-to-speech)
+    function speakText(text) {
+        if ('speechSynthesis' in window) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.voice = speechSynthesis.getVoices()[0];  // Select the default voice
+            speechSynthesis.speak(utterance);
+        } else {
+            console.error("Speech synthesis not supported in this browser.");
+        }
+    }
+
+    function capitalizeWords(text) {
+        return text.replace(/\b\w/g, char => char.toUpperCase());
+    }
+
+    function displayProducts(products, productContainer) {
+        products.forEach(product => {
+            const productDiv = document.createElement('div');
+            productDiv.classList.add('product-card');
+            productDiv.innerHTML = `
+                <div class="product-details">
+                    <h3>${capitalizeWords(product.name)}</h3>
+                    <p><strong>Color:</strong> ${capitalizeWords(product.color)}</p>
+                    <p><strong>Size:</strong> ${capitalizeWords(product.size)}</p>
+                    <p><strong>Brand:</strong> ${capitalizeWords(product.brand)}</p>
+                    <p><strong>Material:</strong> ${capitalizeWords(product.material)}</p>
+                    <p><strong>Use Case:</strong> ${capitalizeWords(product.usecase)}</p>
+                </div>
+            `;
+            productContainer.appendChild(productDiv);
+        });
+    }
+
+    function displayStoreSections(storesections, storeSectionContainer) {
+        storesections.forEach(section => {
+            const sectionDiv = document.createElement('div');
+            sectionDiv.classList.add('store-section');
+            sectionDiv.innerHTML = `
+                <h3>${capitalizeWords(section.name)}</h3>
+                <p><strong>Location:</strong> ${(section.location)}</p>
+                <p><strong>Description:</strong> ${(section.description)}</p>
+            `;
+            storeSectionContainer.appendChild(sectionDiv);
+        });
+    }
+
+    function displayPromotions(promotions, promotionContainer) {
+        promotions.forEach(promotion => {
+            const promotionDiv = document.createElement('div');
+            promotionDiv.classList.add('promotion');
+            promotionDiv.innerHTML = `
+                <h3>${capitalizeWords(promotion.title)}</h3>
+                <p><strong>Description:</strong> ${(promotion.description)}</p>
+                <p><strong>Discount:</strong> ${promotion.discount_percentage}%</p>
+                <p><strong>Start Date:</strong> ${promotion.start_date}</p>
+                <p><strong>End Date:</strong> ${promotion.end_date}</p>
+            `;
+            promotionContainer.appendChild(promotionDiv);
+        });
+    }
+
+    function displaySupportResponses(responses, supportContainer) {
+        responses.forEach(response => {
+            const supportDiv = document.createElement('div');
+            supportDiv.classList.add('support-response');
+            supportDiv.innerHTML = `
+                <h3>Question: ${response.query}</h3>
+                <p><strong>Answer:</strong> ${response.response}</p>
+            `;
+            supportContainer.appendChild(supportDiv);
+        });
+    }
+</script>
+
+</body>
+</html>
